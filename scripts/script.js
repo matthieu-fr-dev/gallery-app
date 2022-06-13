@@ -42,8 +42,15 @@ function addAlbum(albumId, albumTitle) {
   let span = document.createElement("span");
   span.classList.add("material-symbols-outlined");
   span.textContent = "Folder";
+  span.addEventListener("click", (event) => {
+    console.log(event.target.id);
+  });
   section.appendChild(span);
-  let hr = document.createElement("hr");
-  section.appendChild(hr);
+  section.addEventListener("mouseenter", () => {
+    span.textContent = "folder_open";
+  });
+  section.addEventListener("mouseleave", () => {
+    span.textContent = "folder";
+  });
   main.appendChild(section);
 }
