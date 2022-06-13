@@ -43,7 +43,7 @@ function addAlbum(albumId, albumTitle) {
   span.classList.add("material-symbols-outlined");
   span.textContent = "Folder";
   span.addEventListener("click", (event) => {
-    console.log(event.target.id);
+    showAlbum(event.target.parentNode.id);
   });
   section.appendChild(span);
   section.addEventListener("mouseenter", () => {
@@ -52,5 +52,28 @@ function addAlbum(albumId, albumTitle) {
   section.addEventListener("mouseleave", () => {
     span.textContent = "folder";
   });
+  main.appendChild(section);
+}
+
+function showAlbum(albumId) {
+  main.innerHTML = "";
+  fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos`)
+    .then((r) => r.json())
+    .then((json) => {
+      for (const image of json) {
+        getAlbumImage(image.id, image.title, image.url, image.thumbnailUrl);
+      }
+    });
+}
+
+function getAlbumImage(imageId, imageTitle, imageUrl, imageThumbnailUrl) {
+  let section = document.createElement("section");
+  let image = document.createElement("img");
+
+  image.src = imageThumbnailUrl;
+  image.title = imageTitle;
+  image.alt = imageTitle.substring(0, imageTitle.indexOf(" "));
+
+  section.appendChild(image);
   main.appendChild(section);
 }
