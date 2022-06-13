@@ -20,3 +20,30 @@ function activateMenu() {
   menuOverlay.classList.toggle("active");
   menuCloseDiv.classList.toggle("active");
 }
+
+window.addEventListener("load", getAlbums);
+
+function getAlbums() {
+  fetch("https://jsonplaceholder.typicode.com/albums/")
+    .then((r) => r.json())
+    .then((json) => {
+      for (const album of json) {
+        addAlbum(album.id, album.title);
+      }
+    });
+}
+
+function addAlbum(albumId, albumTitle) {
+  let section = document.createElement("section");
+  section.setAttribute("id", albumId);
+  let title = document.createElement("h2");
+  title.textContent = albumTitle;
+  section.appendChild(title);
+  let span = document.createElement("span");
+  span.classList.add("material-symbols-outlined");
+  span.textContent = "Folder";
+  section.appendChild(span);
+  let hr = document.createElement("hr");
+  section.appendChild(hr);
+  main.appendChild(section);
+}
