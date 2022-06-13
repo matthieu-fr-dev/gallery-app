@@ -1,0 +1,132 @@
+html {
+  box-sizing: border-box;
+
+  /* taille du Header */
+  --header-height: 90px;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background: #2d2d2d;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* cache le menu */
+  overflow-x: hidden;
+}
+
+header {
+  height: var(--header-height);
+  width: 100vw;
+  background: linear-gradient(
+    90deg,
+    #03071e 10vw,
+    #370617 10vw 20vw,
+    #6a040f 20vw 30vw,
+    #9d0208 30vw 40vw,
+    #d00000 40vw 50vw,
+    #dc2f02 50vw 60vw,
+    #e85d04 60vw 70vw,
+    #f48c06 70vw 80vw,
+    #faa307 80vw 90vw,
+    #ffba08 90vw 100vw
+  );
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+  color: white;
+  font-size: 2.7rem;
+  /* Espacement du bouton Home et More */
+  margin: 0 2.5vw;
+  /* Ombre des icones */
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.material-symbols-outlined:hover {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+  color: #d100d1;
+  transition: color 0.3s ease-in;
+  cursor: pointer;
+}
+
+nav .material-symbols-outlined {
+  margin: 0;
+  font-size: 2rem;
+  padding: 2rem;
+}
+
+header > nav {
+  opacity: 0;
+  position: absolute;
+  top: 90px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffba08;
+  transform: translateX(30vh);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  z-index: 1000;
+}
+
+header > nav.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+nav.active > div {
+  height: 100vh;
+  width: 100vw;
+  z-index: 500;
+}
+
+main {
+  height: calc(100vh - var(--header-height));
+  padding-top: 1.5rem;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  overflow: scroll;
+}
+
+main section {
+  height: 36vh;
+}
+
+section img {
+  aspect-ratio: 4/3;
+  height: 100%;
+}
+
+/* Gestion du coté Responsive */
+@media (min-width: 481px) {
+  /* Changement de la direction du flex et ajout du retour a la ligne */
+  main {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  /* taille du menu */
+  nav .material-symbols-outlined {
+    font-size: 3rem;
+    padding: 3rem;
+  }
+
+  /* taille boutons Home et More */
+  .material-symbols-outlined {
+    font-size: 3rem;
+  }
+}
