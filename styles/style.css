@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;400&family=Share+Tech+Mono&display=swap");
 html {
   box-sizing: border-box;
 
@@ -20,6 +22,7 @@ body {
   flex-direction: column;
   /* cache le menu */
   overflow-x: hidden;
+  font-family: "Share Tech Mono", monospace;
 }
 
 header {
@@ -99,31 +102,49 @@ body > div.active {
 
 main {
   height: calc(100vh - var(--header-height));
-  padding-top: 1.5rem;
+  padding-top: 18px;
   width: 100vw;
+  overflow: scroll;
+  color: #999;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
-  overflow: scroll;
+  row-gap: 18px;
 }
 
 main section {
-  height: 36vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #d100d1;
+  padding: 18px 18px 0;
+  border-radius: 21px;
 }
 
-section img {
-  aspect-ratio: 4/3;
-  height: 100%;
+section span.material-symbols-outlined {
+  font-size: 12rem;
+  margin: 0;
+}
+
+section h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  text-justify: auto;
+  z-index: 2;
+  width: 63vw;
+  text-align: center;
+}
+
+section h2::first-letter {
+  text-transform: capitalize;
 }
 
 /* Gestion du coté Responsive */
 @media (min-width: 481px) {
   /* Changement de la direction du flex et ajout du retour a la ligne */
   main {
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-evenly;
   }
 
   /* taille du menu */
