@@ -69,11 +69,14 @@ function showAlbum(albumId) {
 function getAlbumImage(imageId, imageTitle, imageUrl, imageThumbnailUrl) {
   let section = document.createElement("section");
   let image = document.createElement("img");
+  let title = document.createElement("h2");
 
   image.src = imageThumbnailUrl;
-  image.title = imageTitle;
+  title.textContent = imageTitle.substring(0, 39);
   image.alt = imageTitle.substring(0, imageTitle.indexOf(" "));
 
+  section.classList.add("img");
+  section.appendChild(title);
   section.appendChild(image);
   main.appendChild(section);
 }

@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;400&family=Share+Tech+Mono&display=swap");
 
 html {
@@ -45,6 +44,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .material-symbols-outlined {
@@ -103,28 +103,26 @@ body > div.active {
 
 main {
   height: calc(100vh - var(--header-height));
-  padding-top: 18px;
   width: 100vw;
   overflow: scroll;
   color: #ddd;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  row-gap: 18px;
+  gap: 30px;
 }
 
 main section {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   border: 1px solid #999;
-  padding: 18px 18px 0;
   border-radius: 21px;
   width: 270px;
   aspect-ratio: 1/1;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-  margin: 15px 15px;
   transition: color ease-in 300ms, border-color ease-in 300ms;
 }
 
@@ -140,7 +138,7 @@ section span.material-symbols-outlined {
 }
 
 section h2 {
-  margin: 0;
+  margin: 18px 9px 0 9px;
   font-size: 1.2rem;
   text-justify: auto;
   z-index: 2;
@@ -152,6 +150,18 @@ section h2::first-letter {
   text-transform: capitalize;
 }
 
+section.img h2 {
+  font-size: 0.9rem;
+}
+
+section.img {
+  justify-content: space-between;
+}
+
+section.img img {
+  margin-bottom: 30px;
+}
+
 /* Gestion du coté Responsive */
 @media (min-width: 481px) {
   /* Changement de la direction du flex et ajout du retour a la ligne */
@@ -161,19 +171,13 @@ section h2::first-letter {
     justify-content: space-evenly;
   }
 
-  /* taille du menu */
-  nav .material-symbols-outlined {
-    font-size: 3rem;
-    padding: 3rem;
-  }
-
-  /* taille boutons Home et More */
-  .material-symbols-outlined {
-    font-size: 3rem;
+  main section {
+    width: 270px;
+    aspect-ratio: 1/1;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 810px) {
   nav .material-symbols-outlined {
     font-size: 4rem;
     padding: 4rem;
