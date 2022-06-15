@@ -44,7 +44,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
 }
 
 .material-symbols-outlined {
@@ -101,6 +100,35 @@ body > div.active {
   display: block;
 }
 
+body > div.show {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.75);
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+body > div.show > img {
+  height: 39vh;
+  aspect-ratio: 16/9;
+  transform: rotate(90deg);
+  transition: all ease-in 300ms;
+}
+
+body > div.show span {
+  margin: 0;
+  position: absolute;
+  left: 0;
+}
+
+body > div.show span:nth-child(2) {
+  left: auto;
+  right: 0;
+  margin-right: -9px;
+}
+
 main {
   height: calc(100vh - var(--header-height));
   width: 100vw;
@@ -111,6 +139,7 @@ main {
   justify-content: flex-start;
   align-items: center;
   gap: 30px;
+  padding-top: 30px;
 }
 
 main section {
@@ -118,7 +147,7 @@ main section {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #999;
+  border: 1px solid #222;
   border-radius: 21px;
   width: 270px;
   aspect-ratio: 1/1;
@@ -128,7 +157,7 @@ main section {
 
 section:hover {
   color: #fff;
-  border-color: #000;
+  border-color: #ccc;
   transition: color ease-in 300ms, border-color ease-in 300ms;
 }
 
@@ -139,7 +168,7 @@ section span.material-symbols-outlined {
 
 section h2 {
   margin: 18px 9px 0 9px;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   text-justify: auto;
   z-index: 2;
   text-align: center;
@@ -175,11 +204,22 @@ section.img img {
     width: 270px;
     aspect-ratio: 1/1;
   }
+
+  body > div.show > img {
+    transform: rotate(0deg);
+    height: auto;
+    width: 90vw;
+  }
 }
 
 @media (min-width: 810px) {
   nav .material-symbols-outlined {
     font-size: 4rem;
     padding: 4rem;
+  }
+
+  body > div.show > img {
+    transform: rotate(0deg);
+    height: 90vh;
   }
 }
