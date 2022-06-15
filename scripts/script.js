@@ -13,12 +13,11 @@ const layoutDiv = document.getElementsByTagName("div")[0];
 menuBtn.addEventListener("click", activateMenu);
 layoutDiv.addEventListener("click", activateMenu);
 
-let count = 0;
-
 /**
  * Detecte si le menu est ouvert ou fermé et gère l'affichage
  */
 function activateMenu() {
+  layoutDiv.innerHTML = "";
   if (!layoutDiv.classList.contains("show")) {
     menuOverlay.classList.toggle("active");
     layoutDiv.classList.toggle("active");
@@ -70,7 +69,6 @@ function showAlbum(albumId) {
     .then((r) => r.json())
     .then((json) => {
       for (const image of json) {
-        count++;
         getAlbumImage(image.id, image.title, image.url, image.thumbnailUrl);
       }
     });
@@ -86,6 +84,8 @@ function getAlbumImage(imageId, imageTitle, imageUrl, imageThumbnailUrl) {
   image.alt = imageTitle.substring(0, imageTitle.indexOf(" "));
 
   section.classList.add("img");
+  section.setAttribute("id", imageId);
+
   section.appendChild(title);
   section.appendChild(image);
 
@@ -109,8 +109,8 @@ function showImage(imageId, imageUrl) {
   right.textContent = "arrow_forward_ios";
   left.textContent = "arrow_back_ios";
 
-  layoutDiv.classList.toggle("show");
   layoutDiv.innerHTML = "";
 
   layoutDiv.appendChild(image);
+  setTimeout(() => layoutDiv.classList.toggle("show"), 1);
 }
