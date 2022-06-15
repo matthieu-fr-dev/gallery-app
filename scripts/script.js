@@ -9,9 +9,15 @@ const body = document.getElementsByTagName("body")[0];
 // Récuperation de la div qui sert a fermer le menu
 const layoutDiv = document.getElementsByTagName("div")[0];
 
-// Ajout de l'évènement click sur le Menu
+const addBtn = document.getElementById("add_button");
+const editBtn = document.getElementById("edit_button");
+const deleteBtn = document.getElementById("delete_button");
+
+// Ajout des évènements click sur le Menu
 menuBtn.addEventListener("click", activateMenu);
 layoutDiv.addEventListener("click", activateMenu);
+
+editBtn.addEventListener("click", editMode);
 
 /**
  * Detecte si le menu est ouvert ou fermé et gère l'affichage
@@ -25,6 +31,9 @@ function activateMenu() {
 
   if (layoutDiv.classList.contains("show")) {
     layoutDiv.classList.toggle("show");
+  }
+  if (layoutDiv.classList.contains("edit")) {
+    layoutDiv.classList.toggle("edit");
   }
 }
 
@@ -111,6 +120,39 @@ function showImage(imageId, imageUrl) {
 
   layoutDiv.innerHTML = "";
 
+  layoutDiv.classList.toggle("show");
+
   layoutDiv.appendChild(image);
-  setTimeout(() => layoutDiv.classList.toggle("show"), 1);
+}
+
+function editMode() {
+  activateMenu();
+  main.childNodes.forEach((item) => {
+    let button = document.createElement("span");
+    button.textContent = "edit";
+    button.classList.add("material-symbols-outlined");
+    button.classList.add("edit");
+    button.addEventListener("click", () => {
+      layoutDiv.classList.toggle("edit");
+      layoutDiv.removeEventListener("click", activateMenu);
+
+      let input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "filename.jpg";
+
+      let span = document.createElement("span");
+      span.textContent = "check_circle";
+      span.classList.add("material-symbols-outlined");
+
+      span.addEventListener("click", () => {
+        layoutDiv.classList.toggle("edit");
+      });
+
+      layoutDiv.innerHTML = "";
+
+      layoutDiv.appendChild(input);
+      layoutDiv.appendChild(span);
+    });
+    item.appendChild(button);
+  });
 }
