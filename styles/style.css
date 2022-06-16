@@ -144,6 +144,32 @@ body > div.edit > input {
   height: 45px;
 }
 
+body > div.delete {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+  opacity: 1;
+  justify-content: center;
+  align-items: center;
+  color: #ccc;
+  font-size: 1.5rem;
+}
+
+body > div.delete > div {
+  background-color: #2d2d2d;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 60px;
+  width: 180px;
+}
+
+body > div.delete > div input {
+  width: auto;
+  height: 30px;
+}
+
 main {
   height: calc(100vh - var(--header-height));
   width: 100vw;
@@ -208,6 +234,13 @@ section.img img {
 }
 
 main section span.edit {
+  position: absolute;
+  font-size: 2.4rem;
+  bottom: 0;
+  right: 0;
+}
+
+main section span.delete {
   position: absolute;
   font-size: 2.4rem;
   bottom: 0;

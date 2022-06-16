@@ -6,7 +6,7 @@ const main = document.getElementsByTagName("main")[0];
 const menuOverlay = document.getElementsByTagName("nav")[0];
 // Récuperation du body
 const body = document.getElementsByTagName("body")[0];
-// Récuperation de la div qui sert a fermer le menu
+// Récuperation de la div multi fonction
 const layoutDiv = document.getElementsByTagName("div")[0];
 
 const addBtn = document.getElementById("add_button");
@@ -18,6 +18,9 @@ menuBtn.addEventListener("click", activateMenu);
 layoutDiv.addEventListener("click", activateMenu);
 
 editBtn.addEventListener("click", editMode);
+deleteBtn.addEventListener("click", deleteMode);
+
+let homepage = true;
 
 /**
  * Detecte si le menu est ouvert ou fermé et gère l'affichage
@@ -68,6 +71,7 @@ function addAlbum(albumId, albumTitle) {
   span.addEventListener("mouseleave", () => {
     span.textContent = "folder";
   });
+  homepage = true;
   main.appendChild(section);
 }
 
@@ -102,6 +106,7 @@ function getAlbumImage(imageId, imageTitle, imageUrl, imageThumbnailUrl) {
     showImage(imageId, imageUrl);
   });
 
+  homepage == false;
   main.appendChild(section);
 }
 
@@ -109,50 +114,104 @@ function showImage(imageId, imageUrl) {
   let image = document.createElement("img");
   image.src = imageUrl;
 
-  let right = document.createElement("span");
-  let left = document.createElement("span");
-
-  right.classList.add("material-symbols-outlined");
-  left.classList.add("material-symbols-outlined");
-
-  right.textContent = "arrow_forward_ios";
-  left.textContent = "arrow_back_ios";
-
   layoutDiv.innerHTML = "";
-
   layoutDiv.classList.toggle("show");
-
   layoutDiv.appendChild(image);
 }
 
 function editMode() {
   activateMenu();
+  addButtons("edit");
+}
+
+function addButtons(textContent) {
   main.childNodes.forEach((item) => {
     let button = document.createElement("span");
-    button.textContent = "edit";
+    button.textContent = textContent;
     button.classList.add("material-symbols-outlined");
-    button.classList.add("edit");
+    button.classList.add(textContent);
+    button.setAttribute("id", `${item.id}`);
+
+    if (item.childNodes.length > 2) {
+      item.removeChild(item.lastChild);
+    }
     button.addEventListener("click", () => {
-      layoutDiv.classList.toggle("edit");
-      layoutDiv.removeEventListener("click", activateMenu);
-
-      let input = document.createElement("input");
-      input.type = "text";
-      input.placeholder = "filename.jpg";
-
-      let span = document.createElement("span");
-      span.textContent = "check_circle";
-      span.classList.add("material-symbols-outlined");
-
-      span.addEventListener("click", () => {
-        layoutDiv.classList.toggle("edit");
-      });
-
-      layoutDiv.innerHTML = "";
-
-      layoutDiv.appendChild(input);
-      layoutDiv.appendChild(span);
+      popupMode(textContent, button.id);
     });
     item.appendChild(button);
   });
+}
+
+function deleteMode() {
+  activateMenu();
+  addButtons("delete");
+}
+
+function popupMode(textContent, buttonId) {
+  switch (textContent) {
+    case "add":
+      add();
+      break;
+    case "edit":
+      edit(buttonId);
+      break;
+    case "delete":
+      delete_(buttonId);
+      break;
+    default:
+      break;
+  }
+}
+
+function add(params) {}
+
+function edit(id) {
+  console.log(id);
+}
+
+function delete_(id) {
+  layoutDiv.classList.toggle("delete");
+  layoutDiv.removeEventListener("click", activateMenu);
+  let confirm = document.createElement("span");
+  confirm.textContent = "check_circle";
+  confirm.classList.add("material-symbols-outlined");
+
+  let cancel = document.createElement("span");
+  cancel.textContent = "cancel";
+  cancel.classList.add("material-symbols-outlined");
+
+  cancel.addEventListener("click", () => {
+    layoutDiv.classList.toggle("delete");
+  });
+
+  confirm.addEventListener("click", () => {
+    fetch(
+      homepage
+        ? `https://jsonplaceholder.typicode.com/albums/${id}`
+        : `https://jsonplaceholder.typicode.com/photos/${id}`,
+      {
+        method: "DELETE",
+      }
+    ).then((r) => {
+      if (r.ok) {
+        layoutDiv.classList.toggle("delete");
+        let removeDiv = document.getElementById(id);
+        main.removeChild(removeDiv);
+      } else {
+        alert("Problem with fetch");
+      }
+    });
+  });
+
+  let container = document.createElement("div");
+  let text = document.createElement("div");
+  text.textContent = "Confirm ?";
+
+  layoutDiv.innerHTML = "";
+
+  container.appendChild(cancel);
+  container.appendChild(confirm);
+
+  layoutDiv.appendChild(text);
+  layoutDiv.appendChild(container);
 }
