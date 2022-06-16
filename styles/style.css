@@ -144,6 +144,15 @@ body > div.edit > input {
   height: 45px;
 }
 
+body > div.delete {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+  opacity: 1;
+  justify-content: center;
+  align-items: center;
+}
+
 main {
   height: calc(100vh - var(--header-height));
   width: 100vw;
@@ -214,6 +223,13 @@ main section span.edit {
   right: 0;
 }
 
+main section span.delete {
+  position: absolute;
+  font-size: 2.4rem;
+  bottom: 0;
+  right: 0;
+}
+
 /* Gestion du coté Responsive */
 @media (min-width: 481px) {
   /* Changement de la direction du flex et ajout du retour a la ligne */
@@ -245,4 +261,8 @@ main section span.edit {
     transform: rotate(0deg);
     max-height: 90vh;
   }
+}
+
+.hidden {
+  display: none;
 }
