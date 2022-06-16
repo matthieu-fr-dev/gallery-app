@@ -182,17 +182,15 @@ function delete_(id) {
   confirm.addEventListener("click", () => {
     fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
       method: "DELETE",
-    })
-      .then((r) => {
-        if (r.ok) {
-          layoutDiv.classList.toggle("delete");
-        } else {
-          //
-        }
-      })
-      .then(
-        document.getElementById(id[id.length - 1]).classList.toggle("hidden")
-      );
+    }).then((r) => {
+      if (r.ok) {
+        layoutDiv.classList.toggle("delete");
+        let div = document.getElementById(id[id.length - 1]);
+        main.removeChild(div);
+      } else {
+        //
+      }
+    });
   });
   layoutDiv.innerHTML = "";
 
