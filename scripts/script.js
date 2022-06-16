@@ -20,6 +20,8 @@ layoutDiv.addEventListener("click", activateMenu);
 editBtn.addEventListener("click", editMode);
 deleteBtn.addEventListener("click", deleteMode);
 
+let homepage = true;
+
 /**
  * Detecte si le menu est ouvert ou fermé et gère l'affichage
  */
@@ -69,6 +71,7 @@ function addAlbum(albumId, albumTitle) {
   span.addEventListener("mouseleave", () => {
     span.textContent = "folder";
   });
+  homepage = true;
   main.appendChild(section);
 }
 
@@ -103,6 +106,7 @@ function getAlbumImage(imageId, imageTitle, imageUrl, imageThumbnailUrl) {
     showImage(imageId, imageUrl);
   });
 
+  homepage == false;
   main.appendChild(section);
 }
 
@@ -126,7 +130,7 @@ function addButtons(textContent) {
     button.textContent = textContent;
     button.classList.add("material-symbols-outlined");
     button.classList.add(textContent);
-    button.setAttribute("id", `${textContent}_${item.id}`);
+    button.setAttribute("id", `${item.id}`);
 
     if (item.childNodes.length > 2) {
       item.removeChild(item.lastChild);
@@ -168,32 +172,46 @@ function edit(id) {
 function delete_(id) {
   layoutDiv.classList.toggle("delete");
   layoutDiv.removeEventListener("click", activateMenu);
-  let confirm = document.createElement("input");
-  confirm.type = "submit";
-  confirm.value = "Submit";
+  let confirm = document.createElement("span");
+  confirm.textContent = "check_circle";
+  confirm.classList.add("material-symbols-outlined");
 
-  let cancel = document.createElement("input");
-  cancel.type = "submit";
-  cancel.value = "Cancel";
+  let cancel = document.createElement("span");
+  cancel.textContent = "cancel";
+  cancel.classList.add("material-symbols-outlined");
+
   cancel.addEventListener("click", () => {
     layoutDiv.classList.toggle("delete");
   });
 
   confirm.addEventListener("click", () => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-      method: "DELETE",
-    }).then((r) => {
+    fetch(
+      homepage
+        ? `https://jsonplaceholder.typicode.com/albums/${id}`
+        : `https://jsonplaceholder.typicode.com/photos/${id}`,
+      {
+        method: "DELETE",
+      }
+    ).then((r) => {
       if (r.ok) {
         layoutDiv.classList.toggle("delete");
-        let div = document.getElementById(id[id.length - 1]);
-        main.removeChild(div);
+        let removeDiv = document.getElementById(id);
+        main.removeChild(removeDiv);
       } else {
-        //
+        alert("Problem with fetch");
       }
     });
   });
+
+  let container = document.createElement("div");
+  let text = document.createElement("div");
+  text.textContent = "Confirm ?";
+
   layoutDiv.innerHTML = "";
 
-  layoutDiv.appendChild(cancel);
-  layoutDiv.appendChild(confirm);
+  container.appendChild(cancel);
+  container.appendChild(confirm);
+
+  layoutDiv.appendChild(text);
+  layoutDiv.appendChild(container);
 }

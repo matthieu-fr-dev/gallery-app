@@ -146,11 +146,28 @@ body > div.edit > input {
 
 body > div.delete {
   display: flex;
+  flex-direction: column;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 9999;
   opacity: 1;
   justify-content: center;
   align-items: center;
+  color: #ccc;
+  font-size: 1.5rem;
+}
+
+body > div.delete > div {
+  background-color: #2d2d2d;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 60px;
+  width: 180px;
+}
+
+body > div.delete > div input {
+  width: auto;
+  height: 30px;
 }
 
 main {
@@ -261,8 +278,4 @@ main section span.delete {
     transform: rotate(0deg);
     max-height: 90vh;
   }
-}
-
-.hidden {
-  display: none;
 }
